@@ -1,0 +1,53 @@
+---
+title: "Final Project Submission"
+author: "Miguel Santana"
+date: "2023-04-02"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Motivation
+
+Natural language processing (NLP) has become an integral part of many industries, from customer service to healthcare. 
+
+Developing a prediction algorithm for NLP can significantly improve accuracy and efficiency, allowing for faster and more accurate data analysis.
+
+**Join us in building the future of NLP with this exciting project!**
+
+## N-gram prediction function
+
+```{r echo=TRUE}
+ngrams <- function(input){
+  # Create a dataframe
+  input <- data_frame(text = input)
+  # Clean the Inpput
+  replace_reg <- "[^[:alpha:][:space:]]*"
+  input <- input %>%
+    mutate(text = str_replace_all(text, replace_reg, ""))
+  # Find word count, separate words, lower case
+  input_count <- str_count(input, boundary("word"))
+  input_words <- unlist(str_split(input, boundary("word")))
+  input_words <- tolower(input_words)
+  # Call the matching functions
+  out <- ifelse(input_count == 1, bigram(input_words), 
+              ifelse (input_count == 2, trigram(input_words), 
+                      quadgram(input_words)))
+  # Output
+  return(out)
+}
+```
+
+## Shiny App - How it works?
+
+The app was built using Shiny. To use the app, you will have to insert the work or phrase and it will automatically generate the next predicted word, without submitting.
+
+The app then checks the word against the prediction algorithm. This prediction is based from longest to shortest N-gram frequency.
+
+## Shiny App - More info
+
+![](project-screenshot.JPG)
+
+The app is available at: https://yacedev-ms.shinyapps.io/final-project/
