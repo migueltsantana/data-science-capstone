@@ -13,8 +13,6 @@ token = error_on_missing_name("TOKEN"),
 secret = error_on_missing_name("SECRET"))
 # Deploy the application.
 deployApp(
-appFiles = c("ui.R", "server.R" #, you can specify which files to deploy, 
-#or keep this NULL to deploy everything
-),
+appFiles = NULL,
 appName = error_on_missing_name("MASTERNAME"),
 appTitle = "final-project")
